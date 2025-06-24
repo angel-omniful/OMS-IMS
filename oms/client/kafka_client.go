@@ -44,7 +44,7 @@ func PublishOrderCreated(ctx context.Context) {
 
 	cursor, err := orders.Find(ctx, filter)
     if err != nil {
-        log.Errorf("❌ Find failed: %v", err)
+        log.Errorf("Find failed: %v", err)
     }
     defer cursor.Close(ctx)
 
@@ -54,13 +54,13 @@ func PublishOrderCreated(ctx context.Context) {
 		var order model.Order
 
 		 if err := cursor.Decode(&order); err != nil {
-            log.Printf("⚠️ Failed to decode document: %v", err)
+            log.Printf("Failed to decode document: %v", err)
             continue
 		 }
 
 		 	payload, err := pubsub.NewEventInBytes(order)
 			if err != nil {
-			kafkaLogger.Errorf("❌ Failed to marshal OrderCreated: %v", err)
+			kafkaLogger.Errorf(" Failed to marshal OrderCreated: %v", err)
 			return
 			}
 
@@ -69,13 +69,13 @@ func PublishOrderCreated(ctx context.Context) {
 				Key:   order.ID,
 				Value: payload,
 			}
-			kafkaLogger.Infof("👉 About to publish to Kafka: topic=%s, key=%s, payload=%s", 
+			kafkaLogger.Infof("About to publish to Kafka: topic=%s, key=%s, payload=%s", 
 			msg.Topic, msg.Key, string(msg.Value))
 
 			if err := producer.Publish(ctx, msg); err != nil {
-				kafkaLogger.Errorf("❌ Kafka publish error: %v", err)
+				kafkaLogger.Errorf("Kafka publish error: %v", err)
 			} else {
-				kafkaLogger.Infof("✅ Published order.created for OrderID: %s", order.ID)
+				kafkaLogger.Infof("Published order.created for OrderID: %s", order.ID)
 			}
 
 	}

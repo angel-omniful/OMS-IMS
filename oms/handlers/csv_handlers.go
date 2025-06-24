@@ -109,7 +109,7 @@ func GenerateCsvUrl(c *gin.Context) {
 
 	log.Println("Download link:", presignedReq.URL)
 
-	// ✅ Return the URL in JSON response
+	
 	c.JSON(int(http.StatusOK), gin.H{
 		"url": presignedReq.URL,
 	})

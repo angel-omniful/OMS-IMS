@@ -22,7 +22,7 @@ type MessageHandler struct{}
 // Process implements the ISqsMessageHandler interface.
 func (h *MessageHandler) Process(ctx context.Context, msgs *[]sqs.Message) error {
 	for _, msg := range *msgs {
-		log.Info("📩 Received message: %s", string(msg.Value))
+		log.Info("Received message: %s", string(msg.Value))
 
 		// Step 1: Extract CSV URL from message body
 		csvUrl:=string(msg.Value)
@@ -49,7 +49,7 @@ func (h *MessageHandler) Process(ctx context.Context, msgs *[]sqs.Message) error
 		for _, record := range records {
 			log.Println("Row:", record)
 		}
-		log.Info("📊 Parsed %d rows", len(records)-1)
+		log.Info("Parsed %d rows", len(records)-1)
 
 		errors:=myDB.GetErrorsCollection()
 		orders:=myDB.GetOrdersCollection()

@@ -46,9 +46,9 @@ func main(){
 	//s3
 	_, err := myclient.NewS3Client(ctx)
 	if err != nil {
-		log.Panicf("❌ Failed to initialize S3 client: %v", err)
+		log.Panicf("Failed to initialize S3 client: %v", err)
 	}else{
-		log.Info("✅ S3 client initialized successfully")
+		log.Info("S3 client initialized successfully")
 	}
 
 	//upload csv here via api call-
@@ -96,9 +96,9 @@ func main(){
 	//sqs
 	sqs, err2 := myclient.NewSQSClient(ctx)
 	if err2 != nil {
-		log.Panicf("❌ Failed to initialize SQS client: %v", err2)
+		log.Panicf("Failed to initialize SQS client: %v", err2)
 	}else{
-		log.Info("✅ SQS client initialized successfully")
+		log.Info("SQS client initialized successfully")
 	}
 
 	if err!=nil{

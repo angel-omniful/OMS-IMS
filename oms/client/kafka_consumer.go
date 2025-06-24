@@ -31,15 +31,15 @@ func (h KafkaMessageHandler) Process(ctx context.Context, msgs *pubsub.Message) 
 	
 	//working with ip parameter
     if err := json.Unmarshal(msgs.Value, &order); err != nil {
-        log.Errorf("❌ Failed to unmarshal order: %v", err)
+        log.Errorf("Failed to unmarshal order: %v", err)
         return err
     }
 	orderJSON, err := json.Marshal(order)
 	if err != nil {
-		log.Errorf("❌ Failed to marshal order: %v", err)
+		log.Errorf("Failed to marshal order: %v", err)
 		return err
 	}
-	log.Infof("✅ Processed order: %+v", order)
+	log.Infof("Processed order: %+v", order)
 	webh:=myDB.GetWebhooksCollection()
 		var webhook model.Webhook
 		filter := bson.M{"tenant_id": order.TenantID, "active": true}
@@ -127,7 +127,7 @@ func (h KafkaMessageHandler) Process(ctx context.Context, msgs *pubsub.Message) 
 			}
     }
 	
-	log.Infof("✅ Processed order: %+v", order)
+	log.Infof("Processed order: %+v", order)
 	
 	return nil
 }
@@ -153,7 +153,7 @@ func NewKafkaConsumer(ctx context.Context) {
 
     // Set NewRelic interceptor for monitoring
     //consumer.SetInterceptor(interceptor.NewRelicInterceptor())
-	log.Infof("✅ Subscribing to Kafka topic: %s with group oms-group", topic)
+	log.Infof("Subscribing to Kafka topic: %s with group oms-group", topic)
 
     // Register message handler for topic
 	var handler pubsub.IPubSubMessageHandler = KafkaMessageHandler{}

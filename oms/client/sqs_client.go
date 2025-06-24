@@ -38,7 +38,7 @@ func NewSQSClient(ctx context.Context) (*SQSClient, error) {
 	// Create publisher
 	publisher := sqs.NewPublisher(queue)
 
-	log.DefaultLogger().Infof("✅ SQS Publisher initialized for queue: %s", queueName)
+	log.DefaultLogger().Infof("SQS Publisher initialized for queue: %s", queueName)
 
 	return &SQSClient{
 		Publisher: publisher,
@@ -52,11 +52,11 @@ func (c *SQSClient) PublishCreateBulkOrderEvent(ctx context.Context, payload []b
 	}
 
 	if err := c.Publisher.Publish(ctx, msg); err != nil {
-		log.DefaultLogger().Errorf("❌ SQS publish failed: %v", err)
+		log.DefaultLogger().Errorf("SQS publish failed: %v", err)
 		return err
 	}
 
-	log.DefaultLogger().Infof("✅ SQS message published successfully")
+	log.DefaultLogger().Infof("SQS message published successfully")
 	return nil
 }
 

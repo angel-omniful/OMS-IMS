@@ -130,7 +130,7 @@ func main(){
 	myclient.InitKafkaProducer(ctx)
 	myclient.NewKafkaConsumer(ctx)
 
-	time.Sleep(5 * time.Second) 
+	time.Sleep(10 * time.Second) 
 	myclient.PublishOrderCreated(ctx)
 
 	//passes mongo ones

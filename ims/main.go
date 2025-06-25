@@ -1,20 +1,17 @@
 package main
 
 import (
-	
 	"log"
 	"time"
 	"github.com/omniful/go_commons/http"
 	"github.com/angel-omniful/ims/routes"
 	"github.com/angel-omniful/ims/myContext"
-    "github.com/angel-omniful/ims/myDb"
+	"github.com/angel-omniful/ims/myDb"
 	//"github.com/omniful/go_commons/db/sql/migration"
 	"github.com/omniful/go_commons/config"
-	
-
+	"github.com/angel-omniful/ims/middleware"
 	
 )
-
 
 
 func main() {
@@ -34,6 +31,8 @@ func main() {
 	false,
 	// Add custom middleware here...
 	)
+
+	server.Engine.Use(middleware.RequestLogger())
 	log.Println("Registering routes...")
 	routes.RegisterAllRoutes(server)
 	log.Println("Routes registered successfully!")
